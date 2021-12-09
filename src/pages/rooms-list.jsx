@@ -14,50 +14,74 @@ import { Select } from '@chakra-ui/react';
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 
-const testData = [
-    {
-        room_id: 4,
-        room_type_id: 34,
-        room_number: "324",
-        floor: 3,
-        cleaned: true,
-        occupancy: false
-    },
-    {
-        room_id: 43,
-        room_type_id: 3234,
-        room_number: "324",
-        floor: 3,
-        cleaned: true,
-        occupancy: false
-    },
-    {
-        room_id: 45,
-        room_type_id: 34,
-        room_number: "324",
-        floor: 3,
-        cleaned: true,
-        occupancy: false
-    },
-    {
-        room_id: 44,
-        room_type_id: 344,
-        room_number: "3424",
-        floor: 33,
-        cleaned: true,
-        occupancy: false
-    },
-    {
-        room_id: 454,
-        room_type_id: 3444,
-        room_number: "34",
-        floor: 33,
-        cleaned: false,
-        occupancy: true,
-    }
+const generalData = [
+   {capacity:1,
+    price_end:80,
+    price_week:45,
+    roomType_id:5,
+    rooms:[
+        {room_id:1,
+        floor:1,
+        room_number:'108',
+        cleaned:false,
+        occupancy: false},
+        {room_id:2,
+            floor:1,
+            room_number:'109',
+            cleaned:false,
+            occupancy: false}
+    
+    ],
+    size:40,
+    type:'Single'
+},
+{   capacity:1,
+    price_end:80,
+    price_week:45,
+    roomType_id:6,
+    rooms:[
+        {room_id:3,
+        floor:1,
+        room_number:'110',
+        cleaned:false,
+        occupancy: true},
+        {room_id:4,
+            floor:1,
+            room_number:'111',
+            cleaned:true,
+            occupancy: false}
+    
+    ],
+    size:40,
+    type:'Double'
+} 
 ]
 
+
+
+let test1Data = generalData.map(({rooms, type}) =>{
+    return {rooms:rooms,roomType:type}
+});
+let testData = [];
+for (let i = 0; i < test1Data.length; i++){
+    
+    for(let j =0;j<test1Data[i].rooms.length;j++){
+        let b= test1Data[i].roomType==='Double'?true:false;
+        testData.push({
+            room_id: test1Data[i].rooms[j].room_id,
+            room_type_id:b,
+            room_number: test1Data[i].rooms[j].room_number,
+            floor: test1Data[i].rooms[j].floor,
+            cleaned:test1Data[i].rooms[j].cleaned,
+            occupancy: test1Data[i].rooms[j].occupancy
+        });
+    }
+    
+}
 export const RoomsList = () => {
+    
+
+
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [filteredRooms, setFilteredRooms] = useState(testData);
@@ -81,6 +105,7 @@ export const RoomsList = () => {
             }
             
         })
+        console.log(testData)
         newFilteredRooms = newFilteredRooms.filter((room) => {
             if (floorFilter !== ""){
                 if (room.floor.toString()===floorFilter){
@@ -97,6 +122,21 @@ export const RoomsList = () => {
                 if (room.room_number.toString()===roomFilter){
                     return true;
                 }
+            }else{
+                return true;
+            }
+            
+        })
+
+        newFilteredRooms = newFilteredRooms.filter((room) => {
+            if (roomTypeIdFilter !== ''){
+                if (roomTypeIdFilter==='SINGLE'){
+                    return !room.room_type_id;
+                }
+                if (roomTypeIdFilter==='DOUBLE'){
+                    return room.room_type_id;
+                }
+                return true
             }else{
                 return true;
             }
@@ -257,14 +297,16 @@ export const RoomsList = () => {
                         display={"flex"}
                         justifyContent={"center"}
                     >
-                        <Input
-                            placeholder={"Room Type"}
+                        <Select
                             width={"90%"}
-                            color={"black"}
-                            borderColor={"black"}
-                            value = {roomTypeIdFilter}
                             onChange = {(e) => setRoomTypeIdFilter(e.target.value)}
-                        />
+                        >
+                            <option value="" disabled selected hidden>Room Type</option>
+                            <option value='ALL'>All</option>
+                            <option value='SINGLE'>Single</option>
+                            <option value='DOUBLE'>Double</option>
+
+                        </Select>
                     </Box>
                     <Box
                         flex={"1 1 0px"}
@@ -343,6 +385,13 @@ export const RoomsList = () => {
                     >
                         <Text
                             color={"black"}
+                        >Room Type</Text>
+                    </Box>
+                    <Box
+                        flex={"1 1 0px"}
+                    >
+                        <Text
+                            color={"black"}
                         >Status</Text>
                     </Box>
                     <Box
@@ -392,6 +441,13 @@ export const RoomsList = () => {
                                     <Text
                                         color={"#336e7b"}
                                     >{room.room_number}</Text>
+                                </Box>
+                                <Box
+                                    flex={"1 1 0px"}
+                                >
+                                    <Text
+                                        color={"#336e7b"}
+                                    >{room.room_type_id ? "Double":"Single"}</Text>
                                 </Box>
                                 <Box
                                     flex={"1 1 0px"}

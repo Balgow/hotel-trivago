@@ -81,7 +81,7 @@ class App extends Component {
         <div>
           <Switch>
             <Route exact path={["/", "/home"]}>
-              <Dashboard></Dashboard>
+              <RoomsList></RoomsList>
             </Route>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
