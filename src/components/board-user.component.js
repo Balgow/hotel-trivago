@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
+import Search from "../pages/Search";
 
 export default class BoardUser extends Component {
   constructor(props) {
@@ -38,11 +39,13 @@ export default class BoardUser extends Component {
 
   render() {
     return (
-      <div className="container">
-        <header className="jumbotron">
-          <h3>{this.state.content}</h3>
-        </header>
-      </div>
+        <Search/>
+      //
+      // <div className="container">
+      //   <header className="jumbotron">
+      //     <h3>{this.state.content}</h3>
+      //   </header>
+      // </div>
     );
   }
 }

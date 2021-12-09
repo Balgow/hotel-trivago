@@ -26,6 +26,13 @@ const HotelCard = (props) => {
                         {props.hotelAddress}
                     </div>
                 </div>
+                <div className="extra content">
+                        {props.hotelNumbers.map((number)=>(
+                            <div className="right floated author">
+                            {number.phone_number}
+                            </div>
+                        ))}
+                </div>
             </div>
         </div>
     )
