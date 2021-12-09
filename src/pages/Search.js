@@ -1,17 +1,20 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import MainContent from '../components/Header/HotelCard/MainContent'
-
+import UserService from "../services/user.service";
 
 const Search = () => {
+    const [data,setData] = useState([]);
 
-    const hotelData = [
-    {'hotel_id':1,'hotel_name':'FirstHotelName','hotel_address':'FirstHotelAddress'},
-    {'hotel_id':2,'hotel_name':'SecondHotelName','hotel_address':'SecondHotelAddress'},
-    {'hotel_id':3,'hotel_name':'ThirdHotelName','hotel_address':'ThirdHotelAddress'},
-    {'hotel_id':4,'hotel_name':'FourthHotelName','hotel_address':'FourthHotelAddress'},
-    {'hotel_id':5,'hotel_name':'FifthHotelName','hotel_address':'FifthHotelAddress'}];
-
-
+    useEffect(()=>{
+        UserService.getAllHotels().then(
+            response => {
+                setData(response.data);
+                console.log(response.data);
+            },
+            error => {
+                console.log(error);
+            });
+    },[])
 
 
     const styles = {
@@ -26,7 +29,7 @@ const Search = () => {
                 <i className="search icon"></i>
                     <input type="text" placeholder="Search..."/>
             </div>
-            <MainContent hotelData={hotelData}></MainContent>
+            <MainContent hotelData={data}></MainContent>
         </div>
     )
 }

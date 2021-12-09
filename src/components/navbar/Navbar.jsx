@@ -145,7 +145,7 @@ class Navbar extends Component {
                         _hover={{color: "#ffffff"}}
                         fontSize={"16px"}
                         lineHeight={"65px"}
-                        height={"65px"}
+                        // height={"65px"}
                         fontWeight={500}
                         
                     >
@@ -156,21 +156,36 @@ class Navbar extends Component {
                                     or
                                 </Text>
                     <Link to={"/login"} className="nav-link">
-                                <Button
-                                    width={"auto"}
-                                    marginRight={"9px"}
-                                    h="35px"
-                                    marginLeft="auto"
-                                    background="#4267B2"
-                                    borderRadius="8px"
-                                    color="#FFFFFF"
-                                    border={"1px solid #4267B2"}
-                                    _hover={{ background: "#080e2c", color:"#59c2b8" }}
-                                    _active={{ background: "#080e2c "}}
-                                    onClick={this.logOut}
-                                >
-                                    Log Out
-                                </Button>
+
+                        <Text
+                            color={"#59c2b8"}
+                            paddingLeft={"7px"}
+                            paddingRight={"7px"}
+                            marginLeft={"12px"}
+                            _hover={{color: "#ffffff"}}
+                            fontSize={"16px"}
+                            lineHeight={"65px"}
+                            // height={"65px"}
+                            fontWeight={500}
+                            onClick={this.logOut}
+                        >
+                            Log Out
+                        </Text>
+                                {/*<Button*/}
+                                {/*    width={"auto"}*/}
+                                {/*    marginRight={"9px"}*/}
+                                {/*    h="35px"*/}
+                                {/*    marginLeft="auto"*/}
+                                {/*    background="#4267B2"*/}
+                                {/*    borderRadius="8px"*/}
+                                {/*    color="#FFFFFF"*/}
+                                {/*    border={"1px solid #4267B2"}*/}
+                                {/*    _hover={{ background: "#080e2c", color:"#59c2b8" }}*/}
+                                {/*    _active={{ background: "#080e2c "}}*/}
+                                {/*    onClick={this.logOut}*/}
+                                {/*>*/}
+                                {/*    Log Out*/}
+                                {/*</Button>*/}
                                 </Link>
                                 </Box>):(<Box
                                 display={"flex"}

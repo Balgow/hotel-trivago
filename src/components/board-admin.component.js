@@ -1,55 +1,24 @@
-import React, { Component } from "react";
+import React, {Component, useEffect, useState} from "react";
 
 import UserService from "../services/user.service";
-import EventBus from "../common/EventBus";
+import Manager from "../pages/Manager";
 
-export default class BoardAdmin extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      data: []
-    };
-  }
+const BoardAdmin = () =>{
+  const [data,setData] = useState([])
 
-  componentDidMount() {
+  useEffect(() => {
     UserService.getAdminBoard().then(
-      response => {
-        this.setState({
-          data: response.data
-        });
-        console.log(response.data)
-      },
-      error => {
-        this.setState({
-          content:
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString()
-        });
+        response => {
+          setData(response.data);
+          console.log(response.data);
+        },
+        error => {
+          console.log(error);
+        })
+  },[]);
 
-        if (error.response && error.response.status === 401) {
-          EventBus.dispatch("logout");
-        }
-      }
-    );
-  }
-
-
-  render() {
-    return (
-      <div className="container">
-        <header className="jumbotron">
-          {this.state.data.map((emp,index)=>(
-              <div key={index}>
-                <h3>{emp.employee_name}</h3>
-                <h4>{emp.employee_name}</h4>
-              </div>
-          ))}
-        </header>
-      </div>
-    );
-  }
+    return <Manager data = {data}/>
 }
+
+export default BoardAdmin;
